@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  IIIDocumentsTableViewController.h
 //  DdocumentsObjc
 //
 //  Created by Ilgar Ilyasov on 3/27/19.
@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+NS_ASSUME_NONNULL_BEGIN
 
+@interface IIIDocumentsTableViewController : UITableViewController
 
 @end
 
+NS_ASSUME_NONNULL_END

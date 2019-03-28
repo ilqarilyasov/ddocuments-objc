@@ -33,7 +33,7 @@
     
     NSNumber *wordCount = [NSNumber numberWithInteger:[document wordCount]];
     NSString *wordCountStr = [wordCount stringValue];
-    NSString *detailStr = [NSString stringWithFormat:@"%@", wordCountStr];
+    NSString *detailStr = [NSString stringWithFormat:@"%@ word(s)", wordCountStr];
     [[cell detailTextLabel] setText: detailStr];
     
     return cell;

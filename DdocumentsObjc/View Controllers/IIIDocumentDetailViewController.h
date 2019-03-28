@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IIIDocumentDetailViewController : UIViewController
+@interface IIIDocumentDetailViewController : UIViewController<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *wordCount;
 @property (weak, nonatomic) IBOutlet UITextField *documentTitle;

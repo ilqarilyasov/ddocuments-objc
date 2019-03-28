@@ -14,13 +14,13 @@
 {
     if ([self isEqualToString:@""]) {
         return 0;
+    } else {
+        NSCharacterSet *separator = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSArray *words = [self componentsSeparatedByCharactersInSet: separator];
+        NSInteger countOfWord = [words count];
+        
+        return (int)countOfWord;
     }
-    
-    NSCharacterSet *separator = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSArray *words = [self componentsSeparatedByCharactersInSet: separator];
-    NSInteger countOfWord = [words count];
-    
-    return (int)countOfWord;
 }
 
 @end

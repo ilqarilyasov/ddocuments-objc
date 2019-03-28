@@ -107,11 +107,15 @@
                         <viewLayoutGuide key="safeArea" id="Y3r-6N-QI1"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Document" id="ymM-n1-hHf">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="aur-ww-JOz"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="aur-ww-JOz">
+                            <connections>
+                                <action selector="save:" destination="nB7-hs-i2d" id="ggZ-AU-Dd5"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="documentName" destination="eHN-KW-wsM" id="xIA-7S-CBa"/>
-                        <outlet property="documentNote" destination="l3S-vN-dg7" id="CbK-0J-upC"/>
+                        <outlet property="documentBody" destination="l3S-vN-dg7" id="CbK-0J-upC"/>
+                        <outlet property="documentTitle" destination="eHN-KW-wsM" id="xIA-7S-CBa"/>
                         <outlet property="wordCount" destination="e4h-zv-ykT" id="XId-gB-2CM"/>
                     </connections>
                 </viewController>

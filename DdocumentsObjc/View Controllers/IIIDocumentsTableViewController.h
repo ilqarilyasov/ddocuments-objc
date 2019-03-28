@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class IIIDocumentController;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IIIDocumentsTableViewController : UITableViewController
+
+@property (nonatomic, strong) IIIDocumentController *documentController;
 
 @end
 

@@ -7,87 +7,76 @@
 //
 
 #import "IIIDocumentsTableViewController.h"
+#import "../Model Controllers/IIIDocumentController.h"
+#import "../Model/IIIDocument.h"
+#import "../View Controllers/IIIDocumentDetailViewController.h"
 
-@interface IIIDocumentsTableViewController ()
-
-@end
 
 @implementation IIIDocumentsTableViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[self tableView] reloadData];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [[self documentController] countOfDocument];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DocumentCell" forIndexPath:indexPath];
+    IIIDocument *document = [[[self documentController] documents] objectAtIndex:[indexPath row]];
+    [[cell textLabel] setText: [document title]];
     
-    // Configure the cell...
+    NSNumber *wordCount = [NSNumber numberWithInteger:[document wordCount]];
+    NSString *wordCountStr = [wordCount stringValue];
+    NSString *detailStr = [NSString stringWithFormat:@"%@", wordCountStr];
+    [[cell detailTextLabel] setText: detailStr];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        NSInteger index = [[[self tableView] indexPathForSelectedRow] row];
+        IIIDocument *document = [[[self documentController] documents] objectAtIndex: index];
+        [[self documentController] deleteDocument: document];
+        [[self tableView] deleteRowsAtIndexPaths: @[indexPath] withRowAnimation: UITableViewRowAnimationFade];
+    }
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString: @"ShowCreateDocument"]) {
+        
+        IIIDocumentDetailViewController *destinationVC = [segue destinationViewController];
+        [destinationVC setDocumentController: [self documentController]];
+        
+    } else if ([[segue identifier] isEqualToString: @"ShowDocumentDetail"]) {
+        
+        IIIDocumentDetailViewController *destinationVC = [segue destinationViewController];
+        [destinationVC setDocumentController: [self documentController]];
+        
+        NSIndexPath *indexPath = [[self tableView] indexPathForSelectedRow];
+        IIIDocument *document = [[[self documentController] documents] objectAtIndex:[indexPath row]];
+        [destinationVC setDocument: document];
+    }
 }
-*/
+
+@synthesize documentController = _documentController;
+
+- (IIIDocumentController *)documentController
+{
+    if (!_documentController) {
+        _documentController = [[IIIDocumentController alloc] init];
+    }
+    
+    return _documentController;
+}
 
 @end
